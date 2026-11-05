@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread] %logger{40} : %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Silence noisy startup noise -->
+    <logger name="org.springframework"            level="WARN"/>
+    <logger name="org.flywaydb"                   level="WARN"/>
+    <logger name="com.zaxxer.hikari"              level="WARN"/>
+    <logger name="org.hibernate"                  level="WARN"/>
+
+    <!-- ✅ SQL logging — the whole point of this file -->
+    <logger name="org.hibernate.SQL"              level="DEBUG"/>
+    <logger name="org.hibernate.orm.jdbc.bind"    level="TRACE"/>
+
+    <!-- Your app logs -->
+    <logger name="com.wealthmax"                  level="INFO"/>
+
+    <root level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

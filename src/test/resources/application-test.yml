@@ -1,0 +1,42 @@
+# Test profile configuration.
+# DO NOT put real secrets here. Every value below is fake or read from the developer's own environment,
+# and this file is committed on purpose.
+
+spring:
+  datasource:
+    # Database tests run on a database on THIS machine only (ADR-007). LocalDatabaseOnlyInitializer refuses
+    # any other host, even if an environment variable overrides this URL.
+    # One-time set-up:  CREATE DATABASE wm_admin_portal_test;   then, if your server wants a password,
+    # set WM_TEST_DB_USER and WM_TEST_DB_PASSWORD in your own environment.
+    url: jdbc:postgresql://localhost:5432/wm_admin_portal_test
+    username: ${WM_TEST_DB_USER:postgres}
+    password: ${WM_TEST_DB_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: false
+        show_sql: false
+  flyway:
+    enabled: true
+    baseline-on-migrate: false
+    # db/test-migration holds the kernel_probe table that only the tests use
+    locations: classpath:db/migration,classpath:db/test-migration
+
+# JWT: fake, test-only values (the secret must be 32 characters or more).
+jwt:
+  secret: test-platform-jwt-secret-not-for-production-use-minimum-256-bits-required
+  issuer: WM-Admin-Portal-BE-Test
+  access-token-expiry: 3600000
+  refresh-token-expiry: 604800000
+
+app:
+  name: wm-admin-portal-be-test
+  version: 0.0.0-test
+  frontend:
+    base-url: https://portal.example.test
+    reset-password-path: /reset-password
+  security:
+    token-pepper: test-token-pepper-not-for-production-use

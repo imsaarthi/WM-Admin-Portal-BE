@@ -1,0 +1,84 @@
+# ============================================
+# WM Admin Portal BE - Local Development Profile (copy to application-local.yml)
+# ============================================
+
+spring:
+  # Database (Local)
+  datasource:
+    url: ""
+    username: ""
+    password: ""
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+
+  # JPA (Local - more verbose)
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # Flyway (Local)
+  flyway:
+    enabled: true
+    clean-disabled: false    # Allow clean in local (NEVER in prod)
+
+  # DevTools (if added)
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
+# ============================================
+# Server (Local)
+# ============================================
+server:
+  port: 8080
+  error:
+    include-stacktrace: always    # Show stacktrace in local
+    include-exception: true
+
+# ============================================
+# JWT (Local - use a fixed secret for consistency)
+# ============================================
+jwt:
+  secret: local-dev-secret-key-for-testing-only-change-in-production-256-bits-minimum
+
+# ============================================
+# Swagger (Local - fully enabled)
+# ============================================
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    try-it-out-enabled: true
+
+# ============================================
+# Actuator (Local - more endpoints)
+# ============================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,flyway,loggers
+  endpoint:
+    health:
+      show-details: always
+
+# ============================================
+# Logging (Local - verbose)
+# ============================================
+logging:
+  level:
+    root: INFO
+    com.wealthmax: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.flywaydb: DEBUG

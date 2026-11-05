@@ -1,0 +1,25 @@
+# Pull-request check (ADR-013).
+#
+# What it runs: the tests that need no database, which includes ModuleBoundaryArchitectureTest.
+# Database tests carry the JUnit tag "database" and are skipped here, because CI has no database (ADR-007).
+# They run on developer machines. A broken Flyway migration is therefore caught locally, not in CI.
+#
+# How it is triggered: Azure Repos does not read a "pr:" block. A repository administrator adds this pipeline as a
+# build-validation policy on the Dev branch (Repos > Branches > Dev > Branch policies). Until that is done this file
+# does nothing, and it has not been run yet.
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: Maven@4
+    displayName: mvn verify (database tests excluded)
+    inputs:
+      mavenPomFile: pom.xml
+      goals: verify
+      options: -B -DexcludedGroups=database
+      javaHomeOption: JDKVersion
+      jdkVersionOption: '1.21'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
