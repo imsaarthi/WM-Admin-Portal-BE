@@ -14,3 +14,5 @@
 | [1i](patch-1i-ci-and-doc-sync-summary.md) | 2026-11-05 | Phase 1 foundations | Azure pipeline, CLAUDE.md and skills/agents synced to Boot 4.1.2 |
 | [1j](patch-1j-behaviour-inventory-summary.md) | 2026-11-05 | Phase 1 foundations | Behaviour inventory: 98 rules from the old application |
 | [1c2-1c3](patch-1c2-1c3-adr-005-to-013-summary.md) | 2026-11-05 | Phase 1 foundations | ADR-005 to 009, 011 to 013, full index |
+| [1k](patch-1k-audit-timestamp-no-cut-summary.md) | 2026-11-06 | Phase 1 foundations | Audit timestamps no longer cut to microseconds; `auditorAware` kept for Phase 3 |
+| [1l](patch-1l-plain-configuration-summary.md) | 2026-11-06 | Phase 1 foundations | `proxyBeanMethods = false` removed from the three common config classes |

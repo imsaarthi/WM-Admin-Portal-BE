@@ -301,9 +301,9 @@ pre-commit check blocks the first commit until DevOps replaces them with `${VARI
 fallback. Never add a new fallback for a secret.
 
 ## Current Phase
-Revamp **Phase 1: foundations**. The master plan is `docs/revamp-implementation-plan.md` in the
+Revamp **Phase 1: foundations is complete** (marked by Sarthak on 2026-11-06). The master plan is `docs/revamp-implementation-plan.md` in the
 old repository (`Wealthmax-Admin-Portal-BE`), and the detailed Phase 1 plan is
-`plans/Sarthak-plan/2026-11-05-phase-1-foundations.md` with its progress table. Phase 1 builds source
+`plans/Sarthak-plan/2026-11-05-phase-1-foundations.md` with its progress table. Phase 1 built source
 control, Boot 4.1.2, the ADR files, the `common` kernel, `ModuleBoundaryArchitectureTest`, the test
 infrastructure (ADR-007), CI and the behaviour inventory. Then Phase 2 (`common.security`,
 `notification`, storage), Phase 3 (identity) and the modules one at a time (careers, leads, content,

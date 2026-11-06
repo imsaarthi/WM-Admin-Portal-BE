@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * class, so a scan there makes every slice bind app.* and jwt.* and fail without a full config.
  * Slices skip @Configuration classes, so they skip this one.
  */
-@Configuration(proxyBeanMethods = false)
+@Configuration
 @ConfigurationPropertiesScan("com.wealthmax")
 public class PropertiesScanConfig {
 }

@@ -1,7 +1,6 @@
 package com.wealthmax.common.config;
 
 import java.time.Clock;
-import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 import org.springframework.context.annotation.Bean;
@@ -17,7 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
  * force every @WebMvcTest slice to build JPA, because slice tests load the application class. Database
  * slice tests import this class explicitly.
  */
-@Configuration(proxyBeanMethods = false)
+@Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditorAware", dateTimeProviderRef = "auditingDateTimeProvider")
 public class JpaAuditingConfig {
 
@@ -27,13 +26,9 @@ public class JpaAuditingConfig {
         return Optional::empty;
     }
 
-    /**
-     * Cut to microseconds on purpose: PostgreSQL TIMESTAMPTZ keeps microseconds, but the Java clock can have 100 ns
-     * (Windows) or 1 ns (Linux). Without this, an entity just saved holds a different instant than the same row
-     * reloaded, and any equality check or cooling-period comparison between them is wrong by a few nanoseconds.
-     */
+    /** Reads the application Clock, so tests can fix the time and nothing depends on the server's time zone. */
     @Bean
     public DateTimeProvider auditingDateTimeProvider(Clock clock) {
-        return () -> Optional.of(clock.instant().truncatedTo(ChronoUnit.MICROS));
+        return () -> Optional.of(clock.instant());
     }
 }

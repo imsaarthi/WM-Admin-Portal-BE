@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * Code asks for the time through this Clock, never through Instant.now() or LocalDateTime.now(), so tests
  * can fix the time and nothing depends on the server's time zone (finding OTH-11).
  */
-@Configuration(proxyBeanMethods = false)
+@Configuration
 public class ClockConfig {
 
     @Bean

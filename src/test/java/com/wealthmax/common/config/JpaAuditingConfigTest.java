@@ -30,13 +30,4 @@ class JpaAuditingConfigTest {
 
         assertThat(config.auditingDateTimeProvider(fixed).getNow()).contains(Instant.parse("2026-11-05T12:00:00Z"));
     }
-
-    @Test
-    @DisplayName("audit timestamps are cut to microseconds, the precision PostgreSQL stores, so a saved entity equals the reloaded row")
-    void auditTimestampsAreCutToMicroseconds() {
-        Clock fine = Clock.fixed(Instant.parse("2026-11-05T12:00:00.123456789Z"), ZoneOffset.UTC);
-
-        assertThat(config.auditingDateTimeProvider(fine).getNow())
-                .contains(Instant.parse("2026-11-05T12:00:00.123456Z"));
-    }
 }

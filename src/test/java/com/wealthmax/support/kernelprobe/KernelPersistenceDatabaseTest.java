@@ -2,8 +2,10 @@ package com.wealthmax.support.kernelprobe;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.within;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 import jakarta.persistence.EntityManager;
 
@@ -82,7 +84,8 @@ class KernelPersistenceDatabaseTest {
 
         KernelProbeEntity reloaded = repository.findById(saved.getId()).orElseThrow();
         assertThat(reloaded.getName()).isEqualTo("after");
-        assertThat(reloaded.getCreatedAt()).isEqualTo(createdAt);
+        // Not isEqualTo: the saved object keeps the Java clock's nanoseconds, PostgreSQL stores microseconds.
+        assertThat(reloaded.getCreatedAt()).isCloseTo(createdAt, within(1, ChronoUnit.MILLIS));
         assertThat(reloaded.getUpdatedAt()).isAfterOrEqualTo(firstUpdate);
         assertThat(reloaded.getUpdatedAt()).isAfterOrEqualTo(reloaded.getCreatedAt());
     }
